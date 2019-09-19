@@ -1,8 +1,8 @@
 import org.testng.annotations.Test;
 
-public class Test1 {
+public class sendEmailTest {
     @Test
-    public void test(){
+    public void sendEmailTest(){
         System.out.println("test");
     }
 }
