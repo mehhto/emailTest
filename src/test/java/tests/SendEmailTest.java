@@ -3,16 +3,17 @@ package tests;
 import org.testng.annotations.Test;
 import page.objects.GmailMainPage;
 import page.objects.LoginPageGmail;
+import page.objects.LoginPageInteria;
 
 import java.util.ArrayList;
 
 import static org.testng.Assert.assertEquals;
 
-public class sendEmailTest extends TestBase {
+public class SendEmailTest extends TestBase {
 
 
     @Test
-    public void sendEmailTest() throws InterruptedException {
+    public void sendEmailTest() {
 
         LoginPageGmail loginPageGmail = new LoginPageGmail(driver);
         GmailMainPage gmailMainPage = loginPageGmail
@@ -26,9 +27,7 @@ public class sendEmailTest extends TestBase {
 
         String messageConfirmation = gmailMainPage.getMessageSentConfirmation();
         assertEquals(messageConfirmation, "Wiadomość została wysłana.");
-
-        gmailMainPage.openNewTab();
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        gmailMainPage.goToInteriaLoginPage(tabs);
     }
+
+
 }

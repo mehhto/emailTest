@@ -1,10 +1,12 @@
 package tests;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
@@ -26,4 +28,11 @@ public class TestBase {
         driver.quit();
     }
 
+    public void openNewTab(){
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+    }
+    public void goToInteriaLoginPage(ArrayList<String> tabs){
+        driver.switchTo().window(tabs.get(1));
+        driver.get("http://poczta.interia.pl");
+    }
 }

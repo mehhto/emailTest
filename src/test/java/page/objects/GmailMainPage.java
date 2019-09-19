@@ -1,14 +1,11 @@
 package page.objects;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.ArrayList;
 
 public class GmailMainPage extends PageBase {
 
@@ -75,16 +72,6 @@ public class GmailMainPage extends PageBase {
         String messageSentConfirmation = popUpMessageSent.getText();
         logger.info("Got message sent confirmation");
         return messageSentConfirmation;
-    }
-
-    public void openNewTab() {
-        ((JavascriptExecutor) driver).executeScript("window.open()");
-    }
-    public LoginPageInteria goToInteriaLoginPage(ArrayList<String> tabs){
-
-        driver.switchTo().window(tabs.get(1));
-        driver.get("http://poczta.interia.pl");
-        return new LoginPageInteria(driver);
     }
 
 }
