@@ -3,30 +3,32 @@ package tests;
 import org.testng.annotations.Test;
 import page.objects.GmailMainPage;
 import page.objects.LoginPageGmail;
-import page.objects.LoginPageInteria;
-
-import java.util.ArrayList;
 
 import static org.testng.Assert.assertEquals;
 
-public class SendEmailTest extends TestBase {
+public class SendAndReceiveEmailTest extends TestBase {
 
 
     @Test
     public void sendEmailTest() {
 
         LoginPageGmail loginPageGmail = new LoginPageGmail(driver);
-        GmailMainPage gmailMainPage = loginPageGmail
+        String messageConfirmation = loginPageGmail
                 .typeAndSubmitEmailAdress("testinguserman1")
                 .typeAndSubmitPassword("YD40bAVH1A8RYuH3bmwr")
                 .clickNewMessageButton()
-                .typeRecipientName("testinguserman2@interia.pl")
+                .typeRecipientName("testinguserman1@gmail.com")
                 .typeMessageSubject("dsadas")
-                .typeMessage("sdasdasdasdas")
-                .sendMessage();
+                .typeMessage("piwwooooooo")
+                .sendMessage()
+                .getMessageSentConfirmation();
 
-        String messageConfirmation = gmailMainPage.getMessageSentConfirmation();
         assertEquals(messageConfirmation, "Wiadomość została wysłana.");
+
+        GmailMainPage gmailMainPage = new GmailMainPage(driver);
+        gmailMainPage.clickRefereshButton();
+
+        assertEquals(gmailMainPage.getMessageText(), "dsadas");
     }
 
 

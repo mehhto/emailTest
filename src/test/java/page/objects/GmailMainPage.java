@@ -1,11 +1,14 @@
 package page.objects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class GmailMainPage extends PageBase {
 
@@ -27,8 +30,11 @@ public class GmailMainPage extends PageBase {
     @FindBy(xpath = "//div[@class='J-J5-Ji']/div[2]/span/span[text()='Wiadomość została wysłana.']")
     private WebElement popUpMessageSent;
 
-    WebDriver driver;
-    WebDriverWait webDriverWait;
+    @FindBy(xpath = "//div[@class='T-I J-J5-Ji nu T-I-ax7 L3']")
+    private WebElement refreshButton;
+
+    @FindBy(xpath = "//tbody/tr[contains(@class,'zA')]")
+    private List<WebElement> listOfMails;
 
     public GmailMainPage(WebDriver driver) {
         this.driver = driver;
@@ -72,6 +78,17 @@ public class GmailMainPage extends PageBase {
         String messageSentConfirmation = popUpMessageSent.getText();
         logger.info("Got message sent confirmation");
         return messageSentConfirmation;
+    }
+
+    public GmailMainPage clickRefereshButton() {
+        refreshButton.click();
+        return this;
+    }
+
+    public String getMessageText(){
+        WebElement message = listOfMails.get(0);
+        WebElement messageTextView = message.findElement(By.xpath("//div[@class='xT']//span[@class='bqe']"));
+        return messageTextView.getText();
     }
 
 }

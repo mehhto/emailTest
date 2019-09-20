@@ -13,8 +13,6 @@ public class LoginPageGmail extends PageBase{
     @FindBy(xpath = "//div[@id='identifierNext']")
     private WebElement nextButton;
 
-    WebDriver driver;
-
     public LoginPageGmail(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(this.driver,this);

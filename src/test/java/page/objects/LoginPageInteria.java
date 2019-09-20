@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPageInteria extends PageBase {
 
-    @FindBy(xpath = "//div[@class='rodo-popup-close']")
+    @FindBy(xpath = "//button[@class='rodo-popup-agree']")
     private WebElement rodoCloseButton;
 
     @FindBy(xpath = "//input[@id='formEmail']")
@@ -20,9 +20,6 @@ public class LoginPageInteria extends PageBase {
 
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement loginButton;
-
-    WebDriver driver;
-WebDriverWait webDriverWait;
 
     public LoginPageInteria(WebDriver driver) {
         this.driver = driver;

@@ -15,17 +15,14 @@ public class PasswordPageGmail extends PageBase{
     @FindBy(xpath = "//div[@id='passwordNext']")
     private WebElement passwordNextButton;
 
-    WebDriver driver;
-    WebDriverWait waitForElement;
-
     public PasswordPageGmail(WebDriver driver) {
         this.driver = driver;
-        waitForElement = new WebDriverWait(driver, 10);
+        webDriverWait = new WebDriverWait(driver, 10);
         PageFactory.initElements(this.driver, this);
     }
 
     public GmailMainPage typeAndSubmitPassword(String password) {
-        waitForElement.until(ExpectedConditions.elementToBeClickable(passwordField));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(passwordField));
         passwordField.sendKeys(password);
         logger.info("Typed password");
         passwordNextButton.click();
