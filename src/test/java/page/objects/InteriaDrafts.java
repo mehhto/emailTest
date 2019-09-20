@@ -12,6 +12,7 @@ public class InteriaDrafts extends PageBase {
 
     @FindBy(xpath = "//a[@data-track-click = 'folderDraft']")
     private WebElement draftsIcon;
+
     @FindBy(xpath = "//a[@data-track-click = 'mainNewMes']")
     private WebElement newMessageIcon;
 
@@ -24,47 +25,65 @@ public class InteriaDrafts extends PageBase {
         PageFactory.initElements(this.driver, this);
     }
 
+    private void waitUntilVisibility(WebElement element) {
+        webDriverWait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    private void waitUntilClickable(WebElement element) {
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    private void waitUntilInvisibility(WebElement element) {
+        webDriverWait.until(ExpectedConditions.invisibilityOf(element));
+    }
+
     private void makeDraft() {
         newMessageIcon.click();
         WebElement subjectField = driver.findElement(By.xpath("//input[@placeholder = 'Temat:']"));
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(subjectField));
+        waitUntilClickable(subjectField);
         subjectField.sendKeys("xxxxxx");
         WebElement closeButton = driver.findElement(By.xpath("//div[@class = 'dialog-header-button icon-close']"));
         closeButton.click();
     }
 
     private void cleanDrafts() {
-        webDriverWait.until(ExpectedConditions.visibilityOf(selectAllCheckbox));
+        waitUntilVisibility(selectAllCheckbox);
         selectAllCheckbox.click();
         WebElement deleteIcon = driver.findElement(By.xpath("//div[@class='msglist-action-bar-button']"));
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(deleteIcon));
+        waitUntilClickable(deleteIcon);
         deleteIcon.click();
     }
 
-    public boolean isDraftsEmpty() {
+    private boolean isDraftsEmpty() {
         String draftsTitle = driver.findElement(By.xpath("//a[@data-track-click = 'folderDraft']")).getAttribute("title");
-//        String draftsTitle = draftsIcon.getAttribute("title");
         return draftsTitle.equals("Robocze (0)");
     }
 
-    public boolean checkIfDraftsWork(){
-        if(isDraftsEmpty()){
+    public boolean checkIfDraftsWork() {
+        if (isDraftsEmpty()) {
             logger.info("Drafts are empty");
             makeDraft();
             WebElement notification = driver.findElement(By.xpath("//div[@class='notification-message']/span"));
-            webDriverWait.until(ExpectedConditions.visibilityOf(notification));
+            waitUntilVisibility(notification);
             logger.info("Draft has been made");
-            System.out.println(isDraftsEmpty());
-            return !isDraftsEmpty();
+            return (!isDraftsEmpty());
         } else {
+            logger.info("Drafts are not empty");
             cleanDrafts();
+            WebElement notification = driver.findElement(By.xpath("//div[@class='notification-message']/span"));
+            waitUntilVisibility(notification);
+            logger.info("Drafts were deleted");
             if (isDraftsEmpty()) {
+                logger.info("Drafts are empty");
+                waitUntilInvisibility(notification);
                 makeDraft();
+                notification = driver.findElement(By.xpath("//div[@class='notification-message']/span"));
+                waitUntilVisibility(notification);
+                logger.info("Draft has been made");
                 return !isDraftsEmpty();
-            } else {
-                return false;
             }
         }
+        return false;
     }
 
 }

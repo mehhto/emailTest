@@ -80,14 +80,15 @@ public class GmailMainPage extends PageBase {
         return messageSentConfirmation;
     }
 
-    public GmailMainPage clickRefereshButton() {
+    public void clickRefereshButton() {
         refreshButton.click();
-        return this;
+        logger.info("Clicked refresh button");
     }
 
-    public String getMessageText(){
+    public String getMessageText() {
         WebElement message = listOfMails.get(0);
         WebElement messageTextView = message.findElement(By.xpath("//div[@class='xT']//span[@class='bqe']"));
+        logger.info("Getting message text");
         return messageTextView.getText();
     }
 

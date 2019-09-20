@@ -29,22 +29,26 @@ public class LoginPageInteria extends PageBase {
 
     public LoginPageInteria clickCloseRodoButton(){
         rodoCloseButton.click();
+        logger.info("clicked close RODO button");
         return this;
     }
 
     public LoginPageInteria typeEmailAdress(){
         webDriverWait.until(ExpectedConditions.elementToBeClickable(emailField));
         emailField.sendKeys("testinguserman2@interia.pl");
+        logger.info("Typed e-mail address");
         return this;
     }
 
     public LoginPageInteria typePassword(){
         passwordField.sendKeys("OcggoU2BzvZg6Io8Xuh6");
+        logger.info("Typed password");
         return this;
     }
 
     public InteriaMainPage logInInteria(){
         loginButton.click();
+        logger.info("Clicked log in button");
         return new InteriaMainPage(driver);
     }
 

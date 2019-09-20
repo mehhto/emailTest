@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import page.objects.InteriaDrafts;
 import page.objects.LoginPageInteria;
 
+import static org.testng.Assert.assertTrue;
+
 public class DraftsTest extends TestBase {
 
     @Test
@@ -18,9 +20,7 @@ public class DraftsTest extends TestBase {
                 .clickDraftsIcon();
 
         InteriaDrafts interiaDrafts = new InteriaDrafts(driver);
-        System.out.println(interiaDrafts.checkIfDraftsWork());
-//        assertTrue(interiaDrafts.checkIfDraftsWork());
-
+        assertTrue(interiaDrafts.checkIfDraftsWork());
     }
 
 }
